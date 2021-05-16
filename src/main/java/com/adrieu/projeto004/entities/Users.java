@@ -1,14 +1,19 @@
 package com.adrieu.projeto004.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_user")
 public class Users implements Serializable{
 
 
@@ -29,6 +34,9 @@ public class Users implements Serializable{
 	
 	@Column
 	private String senha;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Order> order = new ArrayList<>();
 	
 	public Users () {}
 
@@ -80,7 +88,12 @@ public class Users implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public List<Order> getOrder() {
+		return order;
+	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
