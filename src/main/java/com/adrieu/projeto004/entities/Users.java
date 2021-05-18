@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class Users implements Serializable{
@@ -35,6 +37,7 @@ public class Users implements Serializable{
 	@Column
 	private String senha;
 	
+	@JsonIgnore// Para não ficar em look, pedido chama cliente e cliente chama pedido, devido ao relacionamento ser "mão dupla"
 	@OneToMany(mappedBy = "cliente")
 	private List<Order> order = new ArrayList<>();
 	
