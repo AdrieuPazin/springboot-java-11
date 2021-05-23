@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.adrieu.projeto004.entities.Category;
 import com.adrieu.projeto004.entities.Order;
+import com.adrieu.projeto004.entities.Product;
 import com.adrieu.projeto004.entities.Users;
 import com.adrieu.projeto004.entities.enums.OrderStatus;
 import com.adrieu.projeto004.repositories.CategoryRepository;
 import com.adrieu.projeto004.repositories.OrderRepository;
+import com.adrieu.projeto004.repositories.ProductRepository;
 import com.adrieu.projeto004.repositories.UserRepository;
 
 //Criando arquivo de configurações para teste. Usa a anotation Configuration. Classe auxiliar de configuração
@@ -32,6 +34,9 @@ public class TesteConfig implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
 	//Realizando o data Seeding. Executando quando o programa foi iniciando através da interface CommandLineRunner definido no inicio da classe
 	@Override
 	public void run(String... args) throws Exception {
@@ -46,10 +51,18 @@ public class TesteConfig implements CommandLineRunner {
 		Category cat2 = new Category(null, "Books"); 
 		Category cat3 = new Category(null, "Computers");
 		
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, ""); 
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, ""); 
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, ""); 
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, ""); 
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, ""); 
+
+		
 		//Salvando no H2, salvando uma lista de objetos
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 	}
 	
 	
