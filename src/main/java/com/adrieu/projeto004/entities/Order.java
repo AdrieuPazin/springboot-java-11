@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.adrieu.projeto004.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -28,17 +29,22 @@ public class Order implements Serializable {
 	@Column
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento; 
-
+	
+	//valor Integer para deixar explicito que está gravando um numero interiro, mas isso somente dentro da classe ORDER
+	private Integer orderStatus;
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Users cliente;
 	
 	public Order() {}
 
-	public Order(Long id, Instant momento, Users cliente) {
+	public Order(Long id, Instant momento, OrderStatus orderStatus, Users cliente) {
 		super();
 		this.id = id;
 		this.momento = momento;
+		//chamando o método de conversão de OrderStatus->Integer
+		setOrderStatus(orderStatus);
 		this.cliente = cliente;
 	}
 
@@ -49,15 +55,28 @@ public class Order implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public Instant getMomento() {
 		return momento;
 	}
-
+	
 	public void setMomento(Instant momento) {
 		this.momento = momento;
 	}
+	
+	
+	//Convertendo INTEGER para OrderStatus
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
 
+	//Convertendo Orderstatus para Integer
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();	
+		}
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
