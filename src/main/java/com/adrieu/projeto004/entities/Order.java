@@ -33,6 +33,8 @@ public class Order implements Serializable {
 	//valor Integer para deixar explicito que está gravando um numero interiro, mas isso somente dentro da classe ORDER
 	private Integer orderStatus;
 	
+	//N-1
+	//Atraves do JoinCOlumn é preciso definir o nome da chave estrangeeira do usuário (cliente_id)
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Users cliente;

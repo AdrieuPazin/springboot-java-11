@@ -37,6 +37,10 @@ public class Users implements Serializable{
 	@Column
 	private String senha;
 	
+	//1-N
+	//JsonIgnore no lado da relação que tiver essa annotation, significa que Users NÃO chamará os PEDIDOS relacionados. 
+	//Se o JsonIgnore estiver em ORDER, ao chamar Users SERÁ chamado também os pedidos relacionados ao CLIENTE e se chamar os Pedidos (ORDER) não será chamado os clientes relacionados.
+	//OneToMany precisa referenciar o nome do atributo onde está a chave estrangeira no lado N da relação muitos-para-um (cliente e não cliente_id. É o nome do ATRIBUTO)
 	@JsonIgnore// Para não ficar em look, pedido chama cliente e cliente chama pedido, devido ao relacionamento ser "mão dupla"
 	@OneToMany(mappedBy = "cliente")
 	private List<Order> order = new ArrayList<>();

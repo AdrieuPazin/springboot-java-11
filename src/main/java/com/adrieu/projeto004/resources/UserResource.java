@@ -12,18 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adrieu.projeto004.entities.Users;
 import com.adrieu.projeto004.services.UserServices;
 
+//Camada de Recursos que depende da camada de Serviçoes e a cama de Serviçoes dependem da cama de Repositories
+//Usa a a anotation RestController
 @RestController
+//chamando o recurso user
 @RequestMapping("/users")
 public class UserResource {
 
+	//Injeção de dependencias. Camada de Serviços injetada na cama de recursos
 	@Autowired
 	private UserServices userServive;
 	
+	//ResponseEntity, recurso Spring para retornar respostas de requisições web
+	// GetMapping responde no metodo GET
 	@GetMapping
 	public ResponseEntity<List<Users>> findAll(){
 		
 		List<Users> list = userServive.findAll();
 		
+		//retornar resposta com sucesso e o corpo da resposta
 		return ResponseEntity.ok().body(list);
 		
 	}

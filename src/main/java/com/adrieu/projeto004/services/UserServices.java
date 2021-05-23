@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.adrieu.projeto004.entities.Users;
 import com.adrieu.projeto004.repositories.UserRepository;
 
+//Camada de Serviços
 @Service
 public class UserServices {
 
+	//Injeção de dependencias
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -21,6 +23,7 @@ public class UserServices {
 	}
 	
 	public Users findById(Long Id) {
+		//Optional existe a partir do java 8
 		Optional<Users> obj = userRepository.findById(Id);
 		return obj.get();
 	}
