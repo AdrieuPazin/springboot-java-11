@@ -2,6 +2,8 @@ package com.adrieu.projeto004.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.adrieu.projeto004.entities.enums.OrderStatus;
@@ -38,6 +41,9 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Users cliente;
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {}
 
@@ -91,6 +97,10 @@ public class Order implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
