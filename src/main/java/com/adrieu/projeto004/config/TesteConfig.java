@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.adrieu.projeto004.entities.Category;
 import com.adrieu.projeto004.entities.Order;
 import com.adrieu.projeto004.entities.OrderItem;
+import com.adrieu.projeto004.entities.Payment;
 import com.adrieu.projeto004.entities.Product;
 import com.adrieu.projeto004.entities.Users;
 import com.adrieu.projeto004.entities.enums.OrderStatus;
@@ -87,6 +88,11 @@ public class TesteConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPreco());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		//instacio a classe pagamento e passo-o como paramentro do objeto pedido da classe dominando que é Order para salvar no bd. Payment não precisa de repository
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		orderRepository.save(o1);
 		
 		
 	}
