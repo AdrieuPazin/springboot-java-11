@@ -3,6 +3,8 @@ package com.adrieu.projeto004.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,10 +51,14 @@ public class UserServices {
 	}
 	//atualizar usuario	
 	public Users update(Long id, Users obj) {
-		//prepara objeto monitorado para ser alterado e depois fazer operação no banco de dados. É mais eficiente que o findByid
-		Users entity = userRepository.getOne(id);
-		updateData(entity, obj);
-		return userRepository.save(entity);
+		try {
+			//prepara objeto monitorado para ser alterado e depois fazer operação no banco de dados. É mais eficiente que o findByid
+			Users entity = userRepository.getOne(id);
+			updateData(entity, obj);
+			return userRepository.save(entity);			
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 		
 	}
 
