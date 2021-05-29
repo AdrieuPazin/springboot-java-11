@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.adrieu.projeto004.entities.Users;
 import com.adrieu.projeto004.repositories.UserRepository;
+import com.adrieu.projeto004.services.exceptions.ResourceNotFoundException;
 
 //Camada de Serviços
 @Service
@@ -25,7 +26,8 @@ public class UserServices {
 	public Users findById(Long Id) {
 		//Optional existe a partir do java 8
 		Optional<Users> obj = userRepository.findById(Id);
-		return obj.get();
+		//tenta buscar o id, senão existir chama a classe de exceção personalizada
+		return obj.orElseThrow(() -> new ResourceNotFoundException(Id));
 	}
 	
 	// salvar usuario
