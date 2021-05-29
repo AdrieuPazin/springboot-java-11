@@ -32,8 +32,23 @@ public class UserServices {
 	public Users insert(Users obj) {
 		return userRepository.save(obj);
 	}
-	
+	// delete usuario
 	public void delete(Long id)	{
 		userRepository.deleteById(id);
 	}	
+	
+	//atualizar usuario	
+	public Users update(Long id, Users obj) {
+		//prepara objeto monitorado para ser alterado e depois fazer operação no banco de dados. É mais eficiente que o findByid
+		Users entity = userRepository.getOne(id);
+		updateData(entity, obj);
+		return userRepository.save(entity);
+		
+	}
+
+	private void updateData(Users entity, Users obj) {
+		entity.setNome(obj.getNome());
+		entity.setEmail(obj.getEmail());
+		entity.setTelefone(obj.getTelefone());
+	}
 }
